@@ -25,10 +25,14 @@ app.get('/api/health', (req, res) => {
 
 // Veritabanına bağlan ve Sunucuyu başlat
 connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`=================================`);
-    console.log(`Backend Sunucu Port ${PORT} üzerinde çalışıyor.`);
-    console.log(`http://localhost:${PORT}`);
-    console.log(`=================================`);
-  });
+  if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+      console.log(`=================================`);
+      console.log(`Backend Sunucu Port ${PORT} üzerinde çalışıyor.`);
+      console.log(`http://localhost:${PORT}`);
+      console.log(`=================================`);
+    });
+  }
 });
+
+module.exports = app;
